@@ -1,4 +1,4 @@
-# Website Planning
+## Website Planning
 
 - User Stories: https://docs.google.com/document/d/1EL1pDPADpDb-U2Jicey_trV3Lz-Bf3xF9XI3Z44gPa0/edit?tab=t.0 
 
