@@ -24,20 +24,16 @@ export default function Home() {
     return (
         <div className={styles.page}>
             <main className={styles.main}>
-                <h1>CISC474 Project Starter</h1>
-                <ol>
-                    <li>
-                        Get started by editing{" "}
-                        <code>apps/web/app/page.tsx</code>
-                    </li>
-                    <li>Save and see your changes instantly.</li>
-                </ol>
-
-                <Button appName="web" className={styles.secondary}>
-                    Open alert
-                </Button>
-                <Link href="/coursesPage">View Courses</Link>
+                <h1> Welcome to Your Courses</h1>
+                <Link href="/course"><li><u>Course 1</u></li></Link>
+                <Link href="/course"><li><u>Course 2</u></li></Link>
+                <Link href="/course"><li><u>Course 3</u></li></Link>
+                <Link href="/course"><li><u>Course 4</u></li></Link>
+                <Link href="/course"><li><u>Course 5</u></li></Link>
+                <br></br>
+                <Image width={600} height={400} src="/calendar-stock-img.jpg" alt="calendar"></Image>
             </main>
+    
             <footer className={styles.footer}>
                 <a
                     href="https://vercel.com/templates?search=turborepo&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
