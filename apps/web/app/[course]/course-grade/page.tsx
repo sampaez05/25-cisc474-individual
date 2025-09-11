@@ -1,7 +1,7 @@
 import Link from "next/link";
 
-export default function grade({params}: {params: { course: string}}) {
-    const {course} = params;
+export default async function grade({params}: {params: Promise<{ course: string}>}) {
+    const course = (await params).course;
     return (
         <div>
             <Link href="/"><button>Back to Home Page</button></Link>
