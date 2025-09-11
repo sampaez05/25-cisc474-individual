@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 export default function grade({params}: {params: { course: string}}) {
-    let {course} = params;
+    const {course} = params;
     return (
         <div>
             <Link href="/"><button>Back to Home Page</button></Link>
