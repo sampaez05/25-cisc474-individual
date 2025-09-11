@@ -2,7 +2,7 @@ import Link from "next/link";
 
 interface LessonPlanProps {
     params: {
-        course:any; //course name
+        course:Promise<any>; //course name
     };
 }
 
