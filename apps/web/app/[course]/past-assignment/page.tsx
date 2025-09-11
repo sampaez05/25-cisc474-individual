@@ -1,13 +1,7 @@
 import Link from "next/link";
 
-interface PastAssignmentProps {
-    params: {
-        course:Promise<any>; //course name
-    };
-}
-
-export default async function pastAssignment({params}:PastAssignmentProps) {
-    let {course} = await (params);
+export default function pastAssignment({params}: {params: { course: string}}) {
+    let {course} = params;
     return (
         <div>
             <Link href="/"><button>Back to Home Page</button></Link>

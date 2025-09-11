@@ -1,14 +1,8 @@
 import Link from "next/link";
 
-interface CourseProps {
-    params: {
-        course:Promise<any>; //course name
 
-    };
-}
-
-export default function course({params}:CourseProps) {
-    let {course} = params;
+export default function course({params}: {params: { course: string}}) {
+    const { course } = params;
     return (
         <div>
             <Link href="/"><button>Back to Home Page</button></Link>

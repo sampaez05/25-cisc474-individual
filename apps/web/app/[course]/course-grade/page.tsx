@@ -1,13 +1,7 @@
 import Link from "next/link";
 
-interface GradeProps {
-    params: {
-        course:Promise<any>; //course name
-    };
-}
-
-export default async function grade({params}:GradeProps) {
-    let {course} = await (params);
+export default function grade({params}: {params: { course: string}}) {
+    let {course} = params;
     return (
         <div>
             <Link href="/"><button>Back to Home Page</button></Link>

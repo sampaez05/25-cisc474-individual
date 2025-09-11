@@ -1,13 +1,7 @@
 import Link from "next/link";
 
-interface SyllabusProps {
-    params: {
-        course:Promise<any>; //course name
-    };
-}
-
-export default async function Syllabus({params}:SyllabusProps){
-    let {course} = await (params);
+export default function Syllabus({params}: {params: { course: string}}){
+    let {course} = params;
     return (
         <div>
             <Link href="/"><button>Back to Home Page</button></Link>

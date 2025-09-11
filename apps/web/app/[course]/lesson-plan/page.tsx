@@ -1,13 +1,7 @@
 import Link from "next/link";
 
-interface LessonPlanProps {
-    params: {
-        course:Promise<any>; //course name
-    };
-}
-
-export default async function lessons({params}:LessonPlanProps) {
-    let {course} = await (params)
+export default function lessons({params}: {params: { course: string}}) {
+    let {course} = params;
     return (
         <div>
             <Link href="/"><button>Back to Home Page</button></Link>
