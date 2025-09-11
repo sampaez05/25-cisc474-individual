@@ -1,14 +1,19 @@
 import Link from "next/link";
 
-export default function pastAssignment() {
+interface PastAssignmentProps {
+    params: {
+        course:string; //course name
+    };
+}
+
+export default function pastAssignment({params}:PastAssignmentProps) {
+    let {course} = params;
     return (
         <div>
             <Link href="/"><button>Back to Home Page</button></Link>
             <br></br>
-            <Link href="/course"><button>Back to Course Name</button></Link>
             <br></br>
-            <br></br>
-            <h1> Course Name</h1>
+            <h1>{course}</h1>
             <br></br>
             <h3>Assignment Name</h3>
             <p>Grade: x/100</p>

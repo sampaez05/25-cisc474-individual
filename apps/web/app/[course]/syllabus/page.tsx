@@ -1,11 +1,16 @@
 import Link from "next/link";
 
-export default function Syllabus() {
+interface SyllabusProps {
+    params: {
+        course:string; //course name
+    };
+}
+
+export default function Syllabus({params}:SyllabusProps){
+    let {course} = params
     return (
         <div>
             <Link href="/"><button>Back to Home Page</button></Link>
-            <br></br>
-            <Link href="/course"><button>Back to Course Name</button></Link>
             <br></br>
             <br></br>
             <h1>Syllabus</h1>
