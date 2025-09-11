@@ -1,5 +1,10 @@
 import Link from "next/link";
 
+/** The parameters were causing issues with the deployment when I had an interface where params:{course:string}  
+ * I was able to fix the issue by changing param's type to Promise<{ course: string}>
+ * This YouTube video was where I found this solution: https://www.youtube.com/watch?v=k9g6aVLH3p4 (around 4:06)
+ * This solution has been applied to all the pages under the [course] segment
+*/
 
 export default async function course({params}: {params: Promise<{ course: string}>}) {
     const course = (await params).course;
