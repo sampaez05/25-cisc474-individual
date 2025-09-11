@@ -2,18 +2,18 @@ import Link from "next/link";
 
 interface SyllabusProps {
     params: {
-        course:string; //course name
+        course:any; //course name
     };
 }
 
-export default function Syllabus({params}:SyllabusProps){
-    let {course} = params
+export default async function Syllabus({params}:SyllabusProps){
+    let {course} = await (params);
     return (
         <div>
             <Link href="/"><button>Back to Home Page</button></Link>
             <br></br>
             <br></br>
-            <h1>Syllabus</h1>
+            <h1>Syllabus for {course}</h1>
             <br></br>
             <h3>Late policy</h3>
             <p>[Description of late policy]</p>

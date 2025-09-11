@@ -2,12 +2,12 @@ import Link from "next/link";
 
 interface AssignmentProps {
     params: {
-        course:string; //course name
+        course:any; //course name
     };
 }
 
-export default function assignment({params}:AssignmentProps) {
-    let {course} = params;
+export default async function assignment({params}:AssignmentProps) {
+    let {course} = await ( params);
     return (
         <div>
             <Link href="/"><button>Back to Home Page</button></Link>

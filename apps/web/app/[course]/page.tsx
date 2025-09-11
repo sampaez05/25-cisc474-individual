@@ -2,7 +2,7 @@ import Link from "next/link";
 
 interface CourseProps {
     params: {
-        course:string; //course name
+        course:any; //course name
 
     };
 }

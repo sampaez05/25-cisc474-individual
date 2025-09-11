@@ -2,12 +2,12 @@ import Link from "next/link";
 
 interface GradeProps {
     params: {
-        course:string; //course name
+        course:any; //course name
     };
 }
 
-export default function grade({params}:GradeProps) {
-    let {course} = params;
+export default async function grade({params}:GradeProps) {
+    let {course} = await (params);
     return (
         <div>
             <Link href="/"><button>Back to Home Page</button></Link>

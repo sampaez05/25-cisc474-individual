@@ -29,7 +29,7 @@ export default function Home() {
                 <Link href="/Course4"><li><u>Course 4</u></li></Link>
                 <Link href="/Course5"><li><u>Course 5</u></li></Link>
                 <br></br>
-                <Image width={600} height={400} src="/calendar-stock-img.jpg" alt="calendar"></Image>
+
             </main>
     
             <footer className={styles.footer}>

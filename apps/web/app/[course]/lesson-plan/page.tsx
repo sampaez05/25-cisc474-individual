@@ -2,12 +2,12 @@ import Link from "next/link";
 
 interface LessonPlanProps {
     params: {
-        course:string; //course name
+        course:any; //course name
     };
 }
 
-export default function lessons({params}:LessonPlanProps) {
-    let {course} = params;
+export default async function lessons({params}:LessonPlanProps) {
+    let {course} = await (params)
     return (
         <div>
             <Link href="/"><button>Back to Home Page</button></Link>
