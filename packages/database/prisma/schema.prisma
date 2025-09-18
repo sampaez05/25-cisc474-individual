@@ -1,5 +1,7 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/client"
+}
 
 datasource db {
   provider  = "postgresql"
@@ -7,14 +9,49 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-generator client {
-  provider = "prisma-client-js"
-  output   = "../generated/client"
+model User {
+  id        Int     @id @default(autoincrement())
+  school_id Int
+  name      String?
+  email     String? @unique
+  role      String?
 }
 
-model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
+model Grade {
+  id         Int    @id @default(autoincrement())
+  student_id Int
+  course_id  Int
+  semester   String
+  grade      Float
+}
+
+model Course {
+  id            Int    @id @default(autoincrement())
+  title         String
+  description   String
+  instructor_id Int
+  files         String
+}
+
+model Assignment {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  due_date    DateTime
+  post_date   DateTime
+  course_id   Int
+}
+
+model Submission {
+  id            Int    @id @default(autoincrement())
+  assignment_id Int
+  student_id    Int
+  file          String
+}
+
+model Feedback {
+  id            Int    @id @default(autoincrement())
+  comment       String
+  submission_id Int
+  grade         Float
 }
