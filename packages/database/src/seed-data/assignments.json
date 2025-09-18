@@ -1,0 +1,27 @@
+[
+    {
+      "id": 1,
+      "title": "Python Basics Homework",
+      "description": "Write a program that prints the first 10 Fibonacci numbers.",
+      "due_date": "2025-09-25T23:59:59Z",
+      "post_date": "2025-09-15T09:00:00Z",
+      "course_id": 1
+    },
+    {
+      "id": 2,
+      "title": "Linked List Implementation",
+      "description": "Implement a singly linked list with insert and delete operations.",
+      "due_date": "2025-09-28T23:59:59Z",
+      "post_date": "2025-09-18T10:00:00Z",
+      "course_id": 2
+    },
+    {
+      "id": 3,
+      "title": "Build a Personal Webpage",
+      "description": "Create a simple portfolio site using HTML and CSS.",
+      "due_date": "2025-10-01T23:59:59Z",
+      "post_date": "2025-09-20T11:00:00Z",
+      "course_id": 3
+    }
+]
+  

@@ -1,0 +1,6 @@
+[
+    { "id": 1, "school_id": 1001, "course_id": 1, "semester": "Fall 2025", "grade": 88.5 },
+    { "id": 2, "school_id": 1002, "course_id": 1, "semester": "Fall 2025", "grade": 91.0 },
+    { "id": 3, "school_id": 1003, "course_id": 2, "semester": "Fall 2025", "grade": 76.3 }
+]
+  

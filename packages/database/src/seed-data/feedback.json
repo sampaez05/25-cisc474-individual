@@ -1,0 +1,21 @@
+[
+    {
+      "id": 1,
+      "comment": "Good effort! Try using a loop instead of hardcoding values.",
+      "submission_id": 1,
+      "grade": 85.0
+    },
+    {
+      "id": 2,
+      "comment": "Excellent use of recursion. Clean code!",
+      "submission_id": 2,
+      "grade": 95.0
+    },
+    {
+      "id": 3,
+      "comment": "Nice webpage structure. Add some styling with CSS.",
+      "submission_id": 3,
+      "grade": 90.0
+    }
+]
+  

@@ -1,0 +1,21 @@
+[
+    {
+      "id": 1,
+      "assignment_id": 1,
+      "student_id": 1001,
+      "file": "alice-fibonacci.py"
+    },
+    {
+      "id": 2,
+      "assignment_id": 1,
+      "student_id": 1002,
+      "file": "bob-fibonacci.py"
+    },
+    {
+      "id": 3,
+      "assignment_id": 3,
+      "student_id": 1003,
+      "file": "charlie-portfolio.zip"
+    }
+]
+  
