@@ -1,0 +1,4 @@
+id,title,description,due_date,post_date,course_id
+1,Python Basics Homework,Write a program that prints the first 10 Fibonacci numbers.,2025-09-25 23:59:59,2025-09-15 09:00:00,1
+2,Linked List Implementation,Implement a singly linked list with insert and delete operations.,2025-09-28 23:59:59,2025-09-18 10:00:00,2
+3,Build a Personal Webpage,Create a simple portfolio site using HTML and CSS.,2025-10-01 23:59:59,2025-09-20 11:00:00,3

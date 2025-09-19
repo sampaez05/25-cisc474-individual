@@ -1,0 +1,7 @@
+id,school_id,name,email,role
+1,1001,Alice Johnson,alice@example.com,STUDENT
+2,1002,Bob Smith,bob@example.com,STUDENT
+3,1003,Charlie Williams,charlie@example.com,STUDENT
+4,2001,Prof. Dana Lee,dana@example.com,INSTRUCTOR
+5,2002,Prof. Ethan Brown,ethan@example.com,INSTRUCTOR
+6,9999,Admin User,admin@example.com,ADMIN

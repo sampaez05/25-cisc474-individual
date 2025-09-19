@@ -1,0 +1,4 @@
+id,comment,submission_id,grade
+1,Good effort! Try using a loop instead of hardcoding values.,1,85
+2,Excellent use of recursion. Clean code!,2,95
+3,Nice webpage structure. Add some styling with CSS.,3,90

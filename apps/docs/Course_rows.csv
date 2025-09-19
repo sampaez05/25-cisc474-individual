@@ -1,0 +1,4 @@
+id,title,description,instructor_id,files
+1,Intro to Programming,Learn the basics of Python programming.,2001,"[""syllabus.pdf"",""week1-slides.pptx""]"
+2,Data Structures,"Covers arrays, linked lists, stacks, and trees.",2001,"[""syllabus.pdf"",""linked-list-guide.docx""]"
+3,Web Development,"Introduction to HTML, CSS, and JavaScript.",2002,"[""syllabus.pdf"",""web-dev-resources.zip""]"
