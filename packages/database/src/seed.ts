@@ -1,7 +1,7 @@
 import { prisma } from "./client";
 import path from "path";
 import fs from "fs";
-import type { User } from "../generated/client";
+import type { User, Grade, Course, Assignment, Submission, Feedback } from "../generated/client";
 import type usersData from "./seed-data/users.json";
 
 /*const DEFAULT_USERS = [
@@ -22,10 +22,11 @@ const DEFAULT_FEEDBACK = loadJSON<any[]>("feedback.json");
 (async () => {
   try {
     await Promise.all(
-      DEFAULT_USERS.map((user: { id: any; }) =>
+      DEFAULT_USERS.map((user:User) =>
         prisma.user.upsert({
           where: {
             id: user.id,
+            school_id: user.school_id,
           },
           update: {
             ...user,
@@ -37,7 +38,7 @@ const DEFAULT_FEEDBACK = loadJSON<any[]>("feedback.json");
       )
     );
     await Promise.all(
-      DEFAULT_COURSES.map((course: { id: any; }) =>
+      DEFAULT_COURSES.map((course:Course) =>
         prisma.course.upsert({
           where: {
             id: course.id,
@@ -52,7 +53,7 @@ const DEFAULT_FEEDBACK = loadJSON<any[]>("feedback.json");
       )
     );
     await Promise.all(
-      DEFAULT_GRADES.map((grade: { id: any; }) =>
+      DEFAULT_GRADES.map((grade:Grade) =>
         prisma.grade.upsert({
           where: {
             id: grade.id,
@@ -67,7 +68,7 @@ const DEFAULT_FEEDBACK = loadJSON<any[]>("feedback.json");
       )
     );
     await Promise.all(
-      DEFAULT_ASSIGNMENTS.map((assignment: { id: any; }) =>
+      DEFAULT_ASSIGNMENTS.map((assignment:Assignment) =>
         prisma.assignment.upsert({
           where: {
             id: assignment.id,
@@ -82,7 +83,7 @@ const DEFAULT_FEEDBACK = loadJSON<any[]>("feedback.json");
       )
     );
     await Promise.all(
-      DEFAULT_SUBMISSIONS.map((submission: { id: any; }) =>
+      DEFAULT_SUBMISSIONS.map((submission:Submission) =>
         prisma.submission.upsert({
           where: {
             id: submission.id,
@@ -97,7 +98,7 @@ const DEFAULT_FEEDBACK = loadJSON<any[]>("feedback.json");
       )
     );
     await Promise.all(
-      DEFAULT_FEEDBACK.map((feedback: { id: any; }) =>
+      DEFAULT_FEEDBACK.map((feedback:Feedback) =>
         prisma.feedback.upsert({
           where: {
             id: feedback.id,
