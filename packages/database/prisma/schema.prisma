@@ -11,7 +11,7 @@ datasource db {
 
 model User {
   id        Int     @id @default(autoincrement())
-  school_id Int
+  school_id Int?
   name      String?
   email     String? @unique
   role      String?
@@ -19,7 +19,7 @@ model User {
 
 model Grade {
   id         Int    @id @default(autoincrement())
-  student_id Int
+  school_id Int
   course_id  Int
   semester   String
   grade      Float
@@ -30,7 +30,7 @@ model Course {
   title         String
   description   String
   instructor_id Int
-  files         String
+  files         String[]
 }
 
 model Assignment {
