@@ -7,7 +7,7 @@
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": false,
     "incremental": true,
-    "module": "commonjs",
+    "module": "NodeNext",
     "moduleResolution": "Node10",
     "noFallthroughCasesInSwitch": false,
     "noImplicitAny": false,
