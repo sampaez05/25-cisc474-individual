@@ -2,7 +2,7 @@ import { prisma } from "./client";
 import path from "path";
 import fs from "fs";
 import type { User, Grade, Course, Assignment, Submission, Feedback } from "../generated/client";
-import type usersData from "./seed-data/users.json";
+import type usersData from "../seed-data/users.json";
 
 /*const DEFAULT_USERS = [
   // Add your own user to pre-populate the database with
