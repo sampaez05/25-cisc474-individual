@@ -1,19 +1,25 @@
 import { Injectable } from '@nestjs/common';
 import { CreateAssignmentDto } from './dto/create-assignment.dto';
 import { UpdateAssignmentDto } from './dto/update-assignment.dto';
+import { Assignment } from '../interfaces/assignment.interface'
+import { PrismaService } from 'src/prisma.service';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class AssignmentsService {
-  create(createAssignmentDto: CreateAssignmentDto) {
-    return 'This action adds a new assignment';
+
+  constructor (private prisma: PrismaService) {}
+
+  async create(data: Assignment) {
+    this.prisma.assignment.create({data});
   }
 
-  findAll() {
-    return `This action returns all assignments`;
+  async findAll():Promise<Assignment[]> {
+    return this.prisma.assignment.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} assignment`;
+  async findOne(id: number):Promise<Assignment | null>  {
+    return this.prisma.assignment.findUnique({ where: { id } });
   }
 
   update(id: number, updateAssignmentDto: UpdateAssignmentDto) {

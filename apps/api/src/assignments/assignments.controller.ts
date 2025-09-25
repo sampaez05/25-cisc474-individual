@@ -2,18 +2,19 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { AssignmentsService } from './assignments.service';
 import { CreateAssignmentDto } from './dto/create-assignment.dto';
 import { UpdateAssignmentDto } from './dto/update-assignment.dto';
+import { Assignment } from 'src/interfaces/assignment.interface';
 
 @Controller('assignments')
 export class AssignmentsController {
-  constructor(private readonly assignmentsService: AssignmentsService) {}
+  constructor(private assignmentsService: AssignmentsService) {}
 
   @Post()
-  create(@Body() createAssignmentDto: CreateAssignmentDto) {
-    return this.assignmentsService.create(createAssignmentDto);
+  async create(@Body() createAssignmentDto: CreateAssignmentDto) {
+    this.assignmentsService.create(createAssignmentDto);
   }
 
   @Get()
-  findAll() {
+  findAll(){
     return this.assignmentsService.findAll();
   }
 

@@ -1,4 +1,4 @@
-export class CreateAssignmentDto {
+export interface Assignment {
     id: number;
     title: string;
     due_date: Date;

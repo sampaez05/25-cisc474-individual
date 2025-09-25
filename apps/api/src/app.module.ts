@@ -4,6 +4,10 @@ import { LinksModule } from './links/links.module';
 
 import { AppService } from './app.service';
 import { AppController } from './app.controller';
+import { AssignmentsController } from './assignments/assignments.controller';
+import { AssignmentsModule } from './assignments/assignments.module';
+import { AssignmentsService } from './assignments/assignments.service';
+import { PrismaService } from './prisma.service';
 
 @Module({
   imports: [LinksModule],
