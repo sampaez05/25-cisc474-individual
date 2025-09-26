@@ -10,7 +10,7 @@ export class AssignmentsService {
 
   constructor (private prisma: PrismaService) {}
 
-  async create(data: Assignment) {
+  async create(data) {
     this.prisma.assignment.create({data});
   }
 
