@@ -10,7 +10,7 @@ import { AssignmentsService } from './assignments/assignments.service';
 import { PrismaModule } from './prisma.module';
 
 @Module({
-  imports: [LinksModule],
+  imports: [LinksModule, AssignmentsModule],
   controllers: [AppController],
   providers: [AppService,],
 })
