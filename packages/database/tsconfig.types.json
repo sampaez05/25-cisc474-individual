@@ -6,7 +6,7 @@
       "outDir": "dist",
       "composite": false,
       "noEmit": false,
-      "rootDir": "./src"
+      //"rootDir": "./src"
     },
     "include": ["src", "generated"]
   }

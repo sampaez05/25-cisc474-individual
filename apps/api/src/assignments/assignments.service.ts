@@ -3,7 +3,6 @@ import { CreateAssignmentDto } from './dto/create-assignment.dto';
 import { UpdateAssignmentDto } from './dto/update-assignment.dto';
 import { Assignment } from '../interfaces/assignment.interface'
 import { PrismaService } from 'src/prisma.service';
-import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class AssignmentsService {
