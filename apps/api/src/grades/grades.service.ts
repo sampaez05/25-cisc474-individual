@@ -1,19 +1,23 @@
 import { Injectable } from '@nestjs/common';
 import { CreateGradeDto } from './dto/create-grade.dto';
 import { UpdateGradeDto } from './dto/update-grade.dto';
+import { PrismaService } from 'src/prisma.service';
+import { Grade } from 'src/interfaces/grade.interface';
 
 @Injectable()
 export class GradesService {
-  create(createGradeDto: CreateGradeDto) {
-    return 'This action adds a new grade';
+  constructor (private prisma: PrismaService) {}
+
+  create(data) {
+    this.prisma.grade.create({data});
   }
 
-  findAll() {
-    return `This action returns all grades`;
+  async findAll():Promise<Grade[]> {
+    return this.prisma.grade.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} grade`;
+  async findOne(id: number):Promise<Grade | null>  {
+    return this.prisma.grade.findUnique({ where: { id } });
   }
 
   update(id: number, updateGradeDto: UpdateGradeDto) {

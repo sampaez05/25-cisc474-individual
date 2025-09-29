@@ -1,19 +1,23 @@
 import { Injectable } from '@nestjs/common';
 import { CreateSubmissionDto } from './dto/create-submission.dto';
 import { UpdateSubmissionDto } from './dto/update-submission.dto';
+import { PrismaService } from 'src/prisma.service';
+import { Submission } from 'src/interfaces/submission.interface';
 
 @Injectable()
 export class SubmissionsService {
-  create(createSubmissionDto: CreateSubmissionDto) {
-    return 'This action adds a new submission';
+  constructor (private prisma: PrismaService) {}
+
+  create(data) {
+    this.prisma.submission.create({data});
   }
 
-  findAll() {
-    return `This action returns all submissions`;
+  async findAll():Promise<Submission[]> {
+    return this.prisma.submission.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} submission`;
+  async findOne(id: number):Promise<Submission | null>  {
+    return this.prisma.submission.findUnique({ where: { id } });
   }
 
   update(id: number, updateSubmissionDto: UpdateSubmissionDto) {
