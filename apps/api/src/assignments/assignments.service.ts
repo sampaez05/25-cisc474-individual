@@ -11,7 +11,7 @@ export class AssignmentsService {
   constructor (private prisma: PrismaService) {}
 
   async create(data) {
-    this.prisma.assignment.create({data});
+    await this.prisma.assignment.create({data});
   }
 
   async findAll():Promise<Assignment[]> {

@@ -7,11 +7,11 @@ import { AppController } from './app.controller';
 import { AssignmentsController } from './assignments/assignments.controller';
 import { AssignmentsModule } from './assignments/assignments.module';
 import { AssignmentsService } from './assignments/assignments.service';
-import { PrismaService } from './prisma.service';
+import { PrismaModule } from './prisma.module';
 
 @Module({
   imports: [LinksModule],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService,],
 })
 export class AppModule {}
