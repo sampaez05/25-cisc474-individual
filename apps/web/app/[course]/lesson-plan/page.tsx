@@ -1,9 +1,12 @@
 import Link from "next/link";
 
 export default async function lessons({params}: {params: Promise<{ course: string}>}) {
-    const course = (await params).course;
+    let course = (await params).course;
+    course = decodeURIComponent(course); //decode to remove the %20 that replaces spaces
+
     return (
         <div>
+
             <Link href="/"><button>Back to Home Page</button></Link>
             <br></br>
             <br></br>

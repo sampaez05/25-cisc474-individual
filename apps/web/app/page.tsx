@@ -1,7 +1,9 @@
 
 import Link from "next/link";
+import CoursesClient from "./clientComponents/coursesClient";
+import { Suspense } from "react";
 
-export default function Home() {
+/*export default function Home() {
     return (
         <div>
             <main>
@@ -16,3 +18,16 @@ export default function Home() {
         </div>
     );
 }
+*/
+export default async function Home({ params }: { params: Promise<{ course: string }> }) {
+    const course = (await params).course;
+    return (
+      <div>
+        <h1>Welcome to Your Courses</h1>
+        <Suspense fallback={<div>Loading</div>}>
+            <CoursesClient/>
+        </Suspense>
+        
+      </div>
+    );
+  }

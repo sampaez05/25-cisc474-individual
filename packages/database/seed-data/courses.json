@@ -4,21 +4,24 @@
       "title": "Intro to Programming",
       "description": "Learn the basics of Python programming.",
       "instructor_id": 2001,
-      "files": ["syllabus.pdf", "week1-slides.pptx"]
+      "files": ["syllabus.pdf", "week1-slides.pptx"],
+      "assignment_id":1
     },
     {
       "id": 2,
       "title": "Data Structures",
       "description": "Covers arrays, linked lists, stacks, and trees.",
       "instructor_id": 2001,
-      "files": ["syllabus.pdf", "linked-list-guide.docx"]
+      "files": ["syllabus.pdf", "linked-list-guide.docx"],
+      "assignment_id":2
     },
     {
       "id": 3,
       "title": "Web Development",
       "description": "Introduction to HTML, CSS, and JavaScript.",
       "instructor_id": 2002,
-      "files": ["syllabus.pdf", "web-dev-resources.zip"]
+      "files": ["syllabus.pdf", "web-dev-resources.zip"],
+      "assignment_id":3
     }
 ]
   
