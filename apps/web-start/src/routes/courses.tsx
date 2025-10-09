@@ -3,10 +3,10 @@ import { Link, createFileRoute } from '@tanstack/react-router'
 import {Course} from '../../interfaces/course.interface'
 
 export const Route = createFileRoute('/courses')({
-  component: RouteComponent,
+  component: CoursesComponent,
 })
 
-function RouteComponent() {
+function CoursesComponent() {
   return (<div>
     <Courses/>
     </div>
@@ -39,7 +39,7 @@ function Courses() {
     return (
       <ul>
         {data.map((course:Course) => (
-          <Link to={`/${course.title}`} key={course.id}><li><u>{course.title}</u></li></Link>
+          <Link to='/courses/$courseId' key={course.id} params={{ courseId: course.id.toString() }}><li><u>{course.title}</u></li></Link>
         ))}
       </ul>
     )
