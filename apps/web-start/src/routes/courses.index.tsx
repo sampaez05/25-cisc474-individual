@@ -2,11 +2,11 @@ import { useQuery } from '@tanstack/react-query'
 import { Link, createFileRoute } from '@tanstack/react-router'
 import {Course} from '../../interfaces/course.interface'
 
-export const Route = createFileRoute('/courses')({
-  component: CoursesComponent,
+export const Route = createFileRoute('/courses/')({
+  component: RouteComponent,
 })
 
-function CoursesComponent() {
+function RouteComponent() {
   return (<div>
     <Courses/>
     </div>
