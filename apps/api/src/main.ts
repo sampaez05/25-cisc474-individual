@@ -8,7 +8,9 @@ async function bootstrap() {
 
   const frontend = process.env.FRONTEND_URL;
 
-  app.enableCors()
+  app.enableCors({
+    origin: frontend
+  })
 
   await app.listen(port, host);
 }

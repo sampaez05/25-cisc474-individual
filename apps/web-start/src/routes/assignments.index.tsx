@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { Assign, Link, createFileRoute } from '@tanstack/react-router'
+import { Link, createFileRoute } from '@tanstack/react-router'
 import {Assignment} from '../../interfaces/assignment.interface'
 
 export const Route = createFileRoute('/assignments/')({
