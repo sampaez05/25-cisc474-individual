@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { Course } from '../../interfaces/course.interface'
 import { Assignment } from '../../interfaces/assignment.interface'
+import { backendFetcher } from '../integrations/fetcher'
 
 export const Route = createFileRoute('/courses/$courseId')({
   component: CourseComponent,
@@ -26,7 +27,8 @@ async function fetchCourseInfo(courseId:string) {
 function CoursePage({ courseId }: { courseId: string }) {
     const { isPending, isError, data, error } = useQuery({
       queryKey: ['course', courseId],
-      queryFn: () => fetchCourseInfo(courseId),
+      //queryFn: () => fetchCourseInfo(courseId),
+      queryFn: backendFetcher<Course>(`courses/${courseId}`)
     })
   
     if (isPending) {
@@ -66,7 +68,8 @@ async function fetchAssignments(courseId:string) {
 function AssignmentsList({ courseId }: { courseId: string }) {
   const { isPending, isError, data, error } = useQuery({
     queryKey: ['assignment', courseId],
-    queryFn: () => fetchAssignments(courseId),
+    //queryFn: () => fetchAssignments(courseId),
+    queryFn: backendFetcher<Assignment>(`assignments/${courseId}`)
   })
 
   if (isPending) {
