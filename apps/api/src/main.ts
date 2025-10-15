@@ -10,7 +10,8 @@ async function bootstrap() {
   
 
   app.enableCors({
-    origin: frontend
+    origin: frontend,
+    credentials: true,
   })
 
   await app.listen(port, host);
