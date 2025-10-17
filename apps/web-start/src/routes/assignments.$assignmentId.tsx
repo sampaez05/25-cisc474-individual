@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { Assignment } from '../../interfaces/assignment.interface'
 import { backendFetcher } from '../integrations/fetcher'
+import type {AssignmentOut} from '../../../../packages/api/src/assignments'
 
 export const Route = createFileRoute('/assignments/$assignmentId')({
   component: RouteComponent,
@@ -17,10 +18,17 @@ function RouteComponent() {
 }
 
 function AssignmentPage({ assignmentId }: { assignmentId: string }) {
-    const { isPending, isError, data, error } = useQuery({
+  const assignmentQueryOptions = {
+    queryKey: ['assignment'],
+    queryFn: backendFetcher<AssignmentOut>(`assignments/${assignmentId}`),
+    initialData: null,
+  };
+    const { isPending, isError, data, error } = useQuery(assignmentQueryOptions);
+
+    /*const { isPending, isError, data, error } = useQuery({
       queryKey: ['assignment', assignmentId],
       queryFn: backendFetcher<Assignment>(`assignments/${assignmentId}`)
-    })
+    })*/
   
     if (isPending) {
       return <span>Loading...</span>
@@ -30,8 +38,11 @@ function AssignmentPage({ assignmentId }: { assignmentId: string }) {
       return <span>Error: {error.message}</span>
     }
 
-    const assignment: Assignment = data
-    console.log(data);
+    const assignment = data;
+    if (!assignment) {
+      return <span>Assignment not found</span>;
+    }
+    console.log("data aka assignment is "+data.title);
 
     const formattedDate = new Date(assignment.due_date).toLocaleString();
   
