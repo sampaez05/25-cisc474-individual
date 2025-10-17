@@ -3,9 +3,18 @@ import { Link, createFileRoute } from '@tanstack/react-router'
 import { Course } from '../../interfaces/course.interface'
 import { Assignment } from '../../interfaces/assignment.interface'
 import { backendFetcher } from '../integrations/fetcher'
+import type {CourseOut} from '../../../../packages/api/src/courses'
+
+
+const courseQueryOptions = {
+  queryKey: ['course'],
+  queryFn: backendFetcher<Array<CourseOut>>('course'),
+  initialData: [],
+};
 
 export const Route = createFileRoute('/courses/$courseId')({
   component: CourseComponent,
+  loader: ({context:{queryClient}}) => queryClient.ensureQueryData(courseQueryOptions)
 })
 
 function CourseComponent() {
@@ -15,19 +24,9 @@ function CourseComponent() {
   
   </div>
 
-
-async function fetchCourseInfo(courseId:string) {
-    const res = await fetch(`http://localhost:3000/courses/${courseId}`);
-    if (!res.ok) {
-      throw new Error('Failed to fetch courses')
-    }
-    return res.json()
-}
-
 function CoursePage({ courseId }: { courseId: string }) {
     const { isPending, isError, data, error } = useQuery({
       queryKey: ['course', courseId],
-      //queryFn: () => fetchCourseInfo(courseId),
       queryFn: backendFetcher<Course>(`courses/${courseId}`)
     })
   
@@ -57,18 +56,9 @@ function CoursePage({ courseId }: { courseId: string }) {
   }
 }
 
-async function fetchAssignments(courseId:string) {
-  const res = await fetch(`http://localhost:3000/assignments/${courseId}`);
-  if (!res.ok) {
-    throw new Error('Failed to fetch courses')
-  }
-  return res.json()
-}
-
 function AssignmentsList({ courseId }: { courseId: string }) {
   const { isPending, isError, data, error } = useQuery({
     queryKey: ['assignment', courseId],
-    //queryFn: () => fetchAssignments(courseId),
     queryFn: backendFetcher<Assignment>(`assignments/${courseId}`)
   })
 

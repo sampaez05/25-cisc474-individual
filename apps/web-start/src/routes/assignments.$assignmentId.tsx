@@ -16,18 +16,9 @@ function RouteComponent() {
     )
 }
 
-async function fetchAssignmentInfo(assignmentId:string) {
-    const res = await fetch(`http://localhost:3000/assignments/${assignmentId}`);
-    if (!res.ok) {
-      throw new Error('Failed to fetch courses')
-    }
-    return res.json()
-}
-
 function AssignmentPage({ assignmentId }: { assignmentId: string }) {
     const { isPending, isError, data, error } = useQuery({
       queryKey: ['assignment', assignmentId],
-      //queryFn: () => fetchAssignmentInfo(assignmentId),
       queryFn: backendFetcher<Assignment>(`assignments/${assignmentId}`)
     })
   

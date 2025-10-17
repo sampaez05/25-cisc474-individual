@@ -2,47 +2,31 @@ import { useQuery } from '@tanstack/react-query'
 import { Link, createFileRoute } from '@tanstack/react-router'
 import {Course} from '../../interfaces/course.interface'
 import { backendFetcher } from '../integrations/fetcher'
-//import {backend} from '../../../api/src/main'
+import type {CourseOut} from '../../../../packages/api/src/courses'
+
+
+const coursesQueryOptions = {
+  queryKey: ['courses'],
+  queryFn: backendFetcher<Array<CourseOut>>('courses'),
+  initialData: [],
+};
 
 export const Route = createFileRoute('/courses/')({
   component: RouteComponent,
-})
+  loader: ({context:{queryClient}}) => queryClient.ensureQueryData(coursesQueryOptions)
+});
 
 function RouteComponent() {
   return (<div>
     <Courses/>
+    <br></br>
+    <Link to="/createCourse"><u>Add New Course</u></Link>
     </div>
   )
 }
 
-
-const baseUrl =
-  import.meta.env.DEV
-    ? import.meta.env.VITE_BACKEND_URL_LOCAL
-    : import.meta.env.VITE_BACKEND_URL_PROD;
-
-async function fetchCoursesList() {
-    /*const res = await fetch(import.meta.env.VITE_BACKEND_URL + "/courses")
-    if (!res.ok) {
-      throw new Error('Failed to fetch courses')
-    }
-    return res.json()*/
-    console.log("local is "+import.meta.env.VITE_BACKEND_URL_LOCAL);
-    return () =>
-    fetch(baseUrl + "/courses").then((res) =>
-      res.json(),
-    );
-  }
-
 function Courses() {
-    const { isPending, isError, data, error } = useQuery({
-      queryKey: ['courses'],
-      /*queryFn: async () => {
-        const fn = await fetchCoursesList(); // this gives you the inner function
-        return fn(); // call it to get the JSON promise
-      },*/
-      queryFn: backendFetcher<Course[]>('courses')
-    })
+    const { isPending, isError, data, error } = useQuery(coursesQueryOptions);
   
     if (isPending) {
       return <span>Loading...</span>
@@ -55,8 +39,10 @@ function Courses() {
     // We can assume by this point that `isSuccess === true`
     return (
       <ul>
-        {data.map((course:Course) => (
-          <Link to='/courses/$courseId' key={course.id} params={{ courseId: course.id.toString() }}><li><u>{course.title}</u></li></Link>
+        {data.map((course) => (
+          <header key={course.id}>
+            <Link to='/courses/$courseId' params={{ courseId: course.id }}><li><u>{course.title}</u></li></Link>
+          </header>
         ))}
       </ul>
     )
