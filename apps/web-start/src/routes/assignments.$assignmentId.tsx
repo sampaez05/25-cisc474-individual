@@ -32,6 +32,8 @@ function AssignmentPage({ assignmentId }: { assignmentId: string }) {
 
     const assignment: Assignment = data
     console.log(data);
+
+    const formattedDate = new Date(assignment.due_date).toLocaleString();
   
     // We can assume by this point that `isSuccess === true`
     return (
@@ -39,7 +41,7 @@ function AssignmentPage({ assignmentId }: { assignmentId: string }) {
         <Link to="/courses"><button><u>Back to Courses Page</u></button></Link>
         <br></br>
         <br></br>
-        <h1> {`${assignment.title}`} -------------------------- Due: {`${assignment.due_date}`}</h1>
+        <h1> {`${assignment.title}`} -------------------------- Due: {formattedDate}</h1>
         <p>{`${assignment.description}`}</p> 
         <br></br>
       </div>

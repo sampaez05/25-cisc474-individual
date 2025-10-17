@@ -79,12 +79,14 @@ function AssignmentsList({ courseId }: { courseId: string }) {
     }
     console.log("data aka assignment is "+data.title);
 
+  const formattedDate = new Date(assignment.due_date).toLocaleString();
+
   // We can assume by this point that `isSuccess === true`
   return (
     <div>
       <br></br>
       <h1>Assignments</h1>
-      <Link to='/assignments/$assignmentId' key={assignment.id} params={{ assignmentId: assignment.id.toString() }}><u>{`${assignment.title}`} -------------------------- Due: {`${assignment.due_date}`}</u></Link>
+      <Link to='/assignments/$assignmentId' key={assignment.id} params={{ assignmentId: assignment.id.toString() }}><u>{assignment.title} -------------------------- Due: {formattedDate}</u></Link>
     </div>
   )
 }
