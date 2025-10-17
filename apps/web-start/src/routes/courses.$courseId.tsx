@@ -4,17 +4,12 @@ import { Course } from '../../interfaces/course.interface'
 import { Assignment } from '../../interfaces/assignment.interface'
 import { backendFetcher } from '../integrations/fetcher'
 import type {CourseOut} from '../../../../packages/api/src/courses'
+import type {AssignmentOut} from '../../../../packages/api/src/assignments'
 
-
-const courseQueryOptions = {
-  queryKey: ['course'],
-  queryFn: backendFetcher<Array<CourseOut>>('course'),
-  initialData: [],
-};
 
 export const Route = createFileRoute('/courses/$courseId')({
   component: CourseComponent,
-  loader: ({context:{queryClient}}) => queryClient.ensureQueryData(courseQueryOptions)
+  //loader: ({context:{queryClient}}) => queryClient.ensureQueryData(courseQueryOptions)
 })
 
 function CourseComponent() {
@@ -25,10 +20,12 @@ function CourseComponent() {
   </div>
 
 function CoursePage({ courseId }: { courseId: string }) {
-    const { isPending, isError, data, error } = useQuery({
-      queryKey: ['course', courseId],
-      queryFn: backendFetcher<Course>(`courses/${courseId}`)
-    })
+  const courseQueryOptions = {
+    queryKey: [`courses/${courseId}`],
+    queryFn: backendFetcher<CourseOut>(`courses/${courseId}`),
+    initialData: null,
+  };
+    const { isPending, isError, data, error } = useQuery(courseQueryOptions);
   
     if (isPending) {
       return <span>Loading...</span>
@@ -38,8 +35,12 @@ function CoursePage({ courseId }: { courseId: string }) {
       return <span>Error: {error.message}</span>
     }
 
-    const course: Course = data
-    console.log(data);
+    console.log("course id is "+courseId)
+    const course = data;
+    if (!course) {
+      return <span>Course not found</span>;
+    }
+    console.log("data aka course is "+data.title);
   
     // We can assume by this point that `isSuccess === true`
     return (
@@ -57,10 +58,12 @@ function CoursePage({ courseId }: { courseId: string }) {
 }
 
 function AssignmentsList({ courseId }: { courseId: string }) {
-  const { isPending, isError, data, error } = useQuery({
-    queryKey: ['assignment', courseId],
-    queryFn: backendFetcher<Assignment>(`assignments/${courseId}`)
-  })
+  const assignmentQueryOptions = {
+    queryKey: [`assignments/${courseId}`],
+    queryFn: backendFetcher<AssignmentOut>(`assignments/${courseId}`),
+    initialData: null,
+  };
+    const { isPending, isError, data, error } = useQuery(assignmentQueryOptions);
 
   if (isPending) {
     return <span>Loading...</span>
@@ -70,8 +73,11 @@ function AssignmentsList({ courseId }: { courseId: string }) {
     return <span>Error: {error.message}</span>
   }
 
-  const assignment: Assignment = data
-  console.log(data);
+  const assignment = data;
+    if (!assignment) {
+      return <span>Assignment not found</span>;
+    }
+    console.log("data aka assignment is "+data.title);
 
   // We can assume by this point that `isSuccess === true`
   return (
