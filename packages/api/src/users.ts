@@ -1,13 +1,13 @@
 import {z} from 'zod';
 
 export const UsereRef = z.object({
-    id: z.uuid(),
+    id: z.int(),
     name: z.string()
 });
 export type UsereRef = z.infer<typeof UsereRef>;
 
 export const UserOut = z.object({
-    id: z.uuid(),
+    id: z.int(),
     name: z.string(),
     email: z.string(),
     role: z.string(),

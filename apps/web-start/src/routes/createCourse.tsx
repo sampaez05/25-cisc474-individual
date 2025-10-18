@@ -12,7 +12,7 @@ function RouteComponent() {
 
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [instructorId, setInstructorId] = useState('2001'); //automatically makes instructor Professor Dana Lee from the database
+    const [instructorId, setInstructorId] = useState(2001); //automatically makes instructor Professor Dana Lee from the database
   
     const queryClient = useQueryClient();
 
@@ -61,7 +61,7 @@ function RouteComponent() {
               type="text"
               placeholder="Instructor ID"
               value={instructorId}
-              onChange={(e) => setInstructorId(e.target.value)}
+              onChange={(e) => setInstructorId(Number(e.target.value))}
             />
           </div>
           <div></div>
@@ -71,7 +71,7 @@ function RouteComponent() {
                 mutation.mutate({
                   title: title,
                   description: description,
-                  instructor: instructorId,
+                  instructor_id: instructorId,
                 });
               }}
             >

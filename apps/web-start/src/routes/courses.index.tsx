@@ -35,13 +35,15 @@ function Courses() {
     if (isError) {
       return <span>Error: {error.message}</span>
     }
+    console.log("Courses data:", data);
+
   
     // We can assume by this point that `isSuccess === true`
     return (
       <ul>
         {data.map((course) => (
           <header key={course.id}>
-            <Link to='/courses/$courseId' params={{ courseId: course.id }}><li><u>{course.title}</u></li></Link>
+            <Link to='/courses/$courseId' params={{ courseId: course.id.toString() }}><li><u>{course.title}</u></li></Link>
           </header>
         ))}
       </ul>
