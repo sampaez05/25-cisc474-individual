@@ -52,10 +52,10 @@ function CoursePage({ courseId }: { courseId: string }) {
         <h1> {`${course.title}`} -------------------------- Grade</h1>
         <p>{`${course.description}`}</p> 
         <br></br>
+        <h1>Assignments:</h1>
         <AssignmentsList courseId={courseId}/> 
         <br></br>
         <br></br>
-        <p>still in prog</p>
         <button onClick={()=>setShowUpdate(true)}><u>Update This Course</u></button>
         {showUpdate && <Update course={course} />}
       </div>
@@ -76,6 +76,9 @@ function AssignmentsList({ courseId }: { courseId: string }) {
   }
 
   if (isError) {
+    if (error.message==="Failed to execute 'json' on 'Response': Unexpected end of JSON input"){
+      return <span>This Class Has No Assignments</span>
+    }
     return <span>Error: {error.message}</span>
   }
 

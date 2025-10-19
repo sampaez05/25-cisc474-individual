@@ -9,7 +9,6 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as UpdateCourseRouteImport } from './routes/updateCourse'
 import { Route as DeleteCourseRouteImport } from './routes/deleteCourse'
 import { Route as CreateCourseRouteImport } from './routes/createCourse'
 import { Route as IndexRouteImport } from './routes/index'
@@ -18,11 +17,6 @@ import { Route as AssignmentsIndexRouteImport } from './routes/assignments.index
 import { Route as CoursesCourseIdRouteImport } from './routes/courses.$courseId'
 import { Route as AssignmentsAssignmentIdRouteImport } from './routes/assignments.$assignmentId'
 
-const UpdateCourseRoute = UpdateCourseRouteImport.update({
-  id: '/updateCourse',
-  path: '/updateCourse',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const DeleteCourseRoute = DeleteCourseRouteImport.update({
   id: '/deleteCourse',
   path: '/deleteCourse',
@@ -63,7 +57,6 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/createCourse': typeof CreateCourseRoute
   '/deleteCourse': typeof DeleteCourseRoute
-  '/updateCourse': typeof UpdateCourseRoute
   '/assignments/$assignmentId': typeof AssignmentsAssignmentIdRoute
   '/courses/$courseId': typeof CoursesCourseIdRoute
   '/assignments': typeof AssignmentsIndexRoute
@@ -73,7 +66,6 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/createCourse': typeof CreateCourseRoute
   '/deleteCourse': typeof DeleteCourseRoute
-  '/updateCourse': typeof UpdateCourseRoute
   '/assignments/$assignmentId': typeof AssignmentsAssignmentIdRoute
   '/courses/$courseId': typeof CoursesCourseIdRoute
   '/assignments': typeof AssignmentsIndexRoute
@@ -84,7 +76,6 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/createCourse': typeof CreateCourseRoute
   '/deleteCourse': typeof DeleteCourseRoute
-  '/updateCourse': typeof UpdateCourseRoute
   '/assignments/$assignmentId': typeof AssignmentsAssignmentIdRoute
   '/courses/$courseId': typeof CoursesCourseIdRoute
   '/assignments/': typeof AssignmentsIndexRoute
@@ -96,7 +87,6 @@ export interface FileRouteTypes {
     | '/'
     | '/createCourse'
     | '/deleteCourse'
-    | '/updateCourse'
     | '/assignments/$assignmentId'
     | '/courses/$courseId'
     | '/assignments'
@@ -106,7 +96,6 @@ export interface FileRouteTypes {
     | '/'
     | '/createCourse'
     | '/deleteCourse'
-    | '/updateCourse'
     | '/assignments/$assignmentId'
     | '/courses/$courseId'
     | '/assignments'
@@ -116,7 +105,6 @@ export interface FileRouteTypes {
     | '/'
     | '/createCourse'
     | '/deleteCourse'
-    | '/updateCourse'
     | '/assignments/$assignmentId'
     | '/courses/$courseId'
     | '/assignments/'
@@ -127,7 +115,6 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CreateCourseRoute: typeof CreateCourseRoute
   DeleteCourseRoute: typeof DeleteCourseRoute
-  UpdateCourseRoute: typeof UpdateCourseRoute
   AssignmentsAssignmentIdRoute: typeof AssignmentsAssignmentIdRoute
   CoursesCourseIdRoute: typeof CoursesCourseIdRoute
   AssignmentsIndexRoute: typeof AssignmentsIndexRoute
@@ -136,13 +123,6 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/updateCourse': {
-      id: '/updateCourse'
-      path: '/updateCourse'
-      fullPath: '/updateCourse'
-      preLoaderRoute: typeof UpdateCourseRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/deleteCourse': {
       id: '/deleteCourse'
       path: '/deleteCourse'
@@ -199,7 +179,6 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CreateCourseRoute: CreateCourseRoute,
   DeleteCourseRoute: DeleteCourseRoute,
-  UpdateCourseRoute: UpdateCourseRoute,
   AssignmentsAssignmentIdRoute: AssignmentsAssignmentIdRoute,
   CoursesCourseIdRoute: CoursesCourseIdRoute,
   AssignmentsIndexRoute: AssignmentsIndexRoute,
