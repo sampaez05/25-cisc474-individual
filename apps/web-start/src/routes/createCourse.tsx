@@ -74,13 +74,12 @@ function RouteComponent() {
                   instructor_id: instructorId,
                 });
               }}
-            >
-              Create Course
+            ><u>Create Course</u>
             </button>
           </div>
           <hr></hr>
           <div>
-            <a href="/courses">Back to Courses</a>
+            <u><a href="/courses">Back to Courses</a></u>
           </div>
         </>
       )}

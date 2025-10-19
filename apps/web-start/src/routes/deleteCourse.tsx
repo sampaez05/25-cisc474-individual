@@ -64,13 +64,12 @@ function RouteComponent() {
                   id: courseId,
                 });
               }}
-            >
-              Delete Course
+            ><u>Delete Course</u>
             </button>
           </div>
           <hr></hr>
           <div>
-            <a href="/courses">Back to Courses</a>
+            <u><a href="/courses">Back to Courses</a></u>
           </div>
         </>
       )}

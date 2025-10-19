@@ -18,7 +18,14 @@ export const Route = createFileRoute('/courses/')({
 
 function RouteComponent() {
   return (<div>
+    <h1>Courses:</h1>
     <Courses/>
+    <br></br>
+    <p>Instructions for Grading Individual - Frontend to Backend Assignment:
+        Click on the View Your Courses button above.
+        To create a course, click on Add New Course and then type in a course name and description. The instructor is already chosen in order to make sure it's a valid user.
+        To delete a course, click on Delete A Course and then type in the correct course name and the corresponding course id.
+        To update/edit a course, click on the course you want to edit and then click on Update This Course. You can then change the name and description.</p>
     <br></br>
     <Link to="/createCourse"><u>Add New Course</u></Link>
     <br></br>
