@@ -2,10 +2,20 @@ import { useQuery } from '@tanstack/react-query'
 import { Link, createFileRoute } from '@tanstack/react-router'
 import {Assignment} from '../../interfaces/assignment.interface'
 import { backendFetcher } from '../integrations/fetcher'
+import type {AssignmentOut} from '../../../../packages/api/src/assignments'
+
+
+const assignmentsQueryOptions = {
+  queryKey: ['courses'],
+  queryFn: backendFetcher<Array<AssignmentOut>>('assignments'),
+  initialData: [],
+};
 
 export const Route = createFileRoute('/assignments/')({
   component: RouteComponent,
-})
+  loader: ({context:{queryClient}}) => queryClient.ensureQueryData(assignmentsQueryOptions)
+});
+
 
 function RouteComponent() {
   return (<div>
@@ -14,21 +24,8 @@ function RouteComponent() {
   )
 }
 
-async function fetchAssignmentsList() {
-    const res = await fetch('http://localhost:3000/assignments')
-    if (!res.ok) {
-      throw new Error('Failed to fetch assignments')
-    }
-    return res.json()
-  }
-
 function Assignments() {
-    const { isPending, isError, data, error } = useQuery({
-      queryKey: ['courses'],
-      //queryFn: fetchAssignmentsList,
-      queryFn: backendFetcher<Assignment[]>('assignments')
-    })
-  
+  const { isPending, isError, data, error } = useQuery(assignmentsQueryOptions);
     if (isPending) {
       return <span>Loading...</span>
     }
@@ -40,8 +37,10 @@ function Assignments() {
     // We can assume by this point that `isSuccess === true`
     return (
       <ul>
-        {data.map((assignment:Assignment) => (
-          <Link to='/assignments/$assignmentId' key={assignment.id} params={{ assignmentId: assignment.id.toString() }}><li><u>{assignment.title}</u></li></Link>
+        {data.map((assignment) => (
+          <header key={assignment.id}>
+            <Link to='/assignments/$assignmentId' params={{ assignmentId: assignment.id.toString() }}><li><u>{assignment.title}</u></li></Link>
+          </header>
         ))}
       </ul>
     )

@@ -9,12 +9,24 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as DeleteCourseRouteImport } from './routes/deleteCourse'
+import { Route as CreateCourseRouteImport } from './routes/createCourse'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CoursesIndexRouteImport } from './routes/courses.index'
 import { Route as AssignmentsIndexRouteImport } from './routes/assignments.index'
 import { Route as CoursesCourseIdRouteImport } from './routes/courses.$courseId'
 import { Route as AssignmentsAssignmentIdRouteImport } from './routes/assignments.$assignmentId'
 
+const DeleteCourseRoute = DeleteCourseRouteImport.update({
+  id: '/deleteCourse',
+  path: '/deleteCourse',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CreateCourseRoute = CreateCourseRouteImport.update({
+  id: '/createCourse',
+  path: '/createCourse',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -43,6 +55,8 @@ const AssignmentsAssignmentIdRoute = AssignmentsAssignmentIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/createCourse': typeof CreateCourseRoute
+  '/deleteCourse': typeof DeleteCourseRoute
   '/assignments/$assignmentId': typeof AssignmentsAssignmentIdRoute
   '/courses/$courseId': typeof CoursesCourseIdRoute
   '/assignments': typeof AssignmentsIndexRoute
@@ -50,6 +64,8 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/createCourse': typeof CreateCourseRoute
+  '/deleteCourse': typeof DeleteCourseRoute
   '/assignments/$assignmentId': typeof AssignmentsAssignmentIdRoute
   '/courses/$courseId': typeof CoursesCourseIdRoute
   '/assignments': typeof AssignmentsIndexRoute
@@ -58,6 +74,8 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/createCourse': typeof CreateCourseRoute
+  '/deleteCourse': typeof DeleteCourseRoute
   '/assignments/$assignmentId': typeof AssignmentsAssignmentIdRoute
   '/courses/$courseId': typeof CoursesCourseIdRoute
   '/assignments/': typeof AssignmentsIndexRoute
@@ -67,6 +85,8 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/createCourse'
+    | '/deleteCourse'
     | '/assignments/$assignmentId'
     | '/courses/$courseId'
     | '/assignments'
@@ -74,6 +94,8 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/createCourse'
+    | '/deleteCourse'
     | '/assignments/$assignmentId'
     | '/courses/$courseId'
     | '/assignments'
@@ -81,6 +103,8 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/createCourse'
+    | '/deleteCourse'
     | '/assignments/$assignmentId'
     | '/courses/$courseId'
     | '/assignments/'
@@ -89,6 +113,8 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CreateCourseRoute: typeof CreateCourseRoute
+  DeleteCourseRoute: typeof DeleteCourseRoute
   AssignmentsAssignmentIdRoute: typeof AssignmentsAssignmentIdRoute
   CoursesCourseIdRoute: typeof CoursesCourseIdRoute
   AssignmentsIndexRoute: typeof AssignmentsIndexRoute
@@ -97,6 +123,20 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/deleteCourse': {
+      id: '/deleteCourse'
+      path: '/deleteCourse'
+      fullPath: '/deleteCourse'
+      preLoaderRoute: typeof DeleteCourseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/createCourse': {
+      id: '/createCourse'
+      path: '/createCourse'
+      fullPath: '/createCourse'
+      preLoaderRoute: typeof CreateCourseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -137,6 +177,8 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CreateCourseRoute: CreateCourseRoute,
+  DeleteCourseRoute: DeleteCourseRoute,
   AssignmentsAssignmentIdRoute: AssignmentsAssignmentIdRoute,
   CoursesCourseIdRoute: CoursesCourseIdRoute,
   AssignmentsIndexRoute: AssignmentsIndexRoute,

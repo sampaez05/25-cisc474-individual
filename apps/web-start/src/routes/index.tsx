@@ -11,6 +11,7 @@ function RouteComponent() {
       <Link to="/courses"><button><u>View Your Courses!</u></button></Link>
       <br></br>
       <Link to="/assignments"><button><u>View Your Assignments!</u></button></Link>
+      <br></br>
     </div>
     );
 }

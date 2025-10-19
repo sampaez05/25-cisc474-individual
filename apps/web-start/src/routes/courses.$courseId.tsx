@@ -1,35 +1,32 @@
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { Course } from '../../interfaces/course.interface'
 import { Assignment } from '../../interfaces/assignment.interface'
-import { backendFetcher } from '../integrations/fetcher'
+import { backendFetcher, mutateBackend } from '../integrations/fetcher'
+import type {CourseOut, CourseUpdateIn} from '../../../../packages/api/src/courses'
+import type {AssignmentOut} from '../../../../packages/api/src/assignments'
+import { useState } from 'react'
+
 
 export const Route = createFileRoute('/courses/$courseId')({
   component: CourseComponent,
+  //loader: ({context:{queryClient}}) => queryClient.ensureQueryData(courseQueryOptions)
 })
 
 function CourseComponent() {
-    const {courseId} = Route.useParams()
+    const {courseId} = Route.useParams();
+    const [showUpdate, setShowUpdate] = useState(false);
   return <div>
     <CoursePage courseId={courseId}/>
-  
   </div>
 
-
-async function fetchCourseInfo(courseId:string) {
-    const res = await fetch(`http://localhost:3000/courses/${courseId}`);
-    if (!res.ok) {
-      throw new Error('Failed to fetch courses')
-    }
-    return res.json()
-}
-
 function CoursePage({ courseId }: { courseId: string }) {
-    const { isPending, isError, data, error } = useQuery({
-      queryKey: ['course', courseId],
-      //queryFn: () => fetchCourseInfo(courseId),
-      queryFn: backendFetcher<Course>(`courses/${courseId}`)
-    })
+  const courseQueryOptions = {
+    queryKey: [`courses/${courseId}`],
+    queryFn: backendFetcher<CourseOut>(`courses/${courseId}`),
+    initialData: null,
+  };
+    const { isPending, isError, data, error } = useQuery(courseQueryOptions);
   
     if (isPending) {
       return <span>Loading...</span>
@@ -39,8 +36,12 @@ function CoursePage({ courseId }: { courseId: string }) {
       return <span>Error: {error.message}</span>
     }
 
-    const course: Course = data
-    console.log(data);
+    console.log("course id is "+courseId)
+    const course = data;
+    if (!course) {
+      return <span>Course not found</span>;
+    }
+    console.log("data aka course is "+data.title);
   
     // We can assume by this point that `isSuccess === true`
     return (
@@ -51,44 +52,129 @@ function CoursePage({ courseId }: { courseId: string }) {
         <h1> {`${course.title}`} -------------------------- Grade</h1>
         <p>{`${course.description}`}</p> 
         <br></br>
+        <h1>Assignments:</h1>
         <AssignmentsList courseId={courseId}/> 
+        <br></br>
+        <br></br>
+        <button onClick={()=>setShowUpdate(true)}><u>Update This Course</u></button>
+        {showUpdate && <Update course={course} />}
       </div>
     )
   }
 }
 
-async function fetchAssignments(courseId:string) {
-  const res = await fetch(`http://localhost:3000/assignments/${courseId}`);
-  if (!res.ok) {
-    throw new Error('Failed to fetch courses')
-  }
-  return res.json()
-}
-
 function AssignmentsList({ courseId }: { courseId: string }) {
-  const { isPending, isError, data, error } = useQuery({
-    queryKey: ['assignment', courseId],
-    //queryFn: () => fetchAssignments(courseId),
-    queryFn: backendFetcher<Assignment>(`assignments/${courseId}`)
-  })
+  const assignmentQueryOptions = {
+    queryKey: [`assignments/${courseId}`],
+    queryFn: backendFetcher<AssignmentOut>(`assignments/${courseId}`),
+    initialData: null,
+  };
+    const { isPending, isError, data, error } = useQuery(assignmentQueryOptions);
 
   if (isPending) {
     return <span>Loading...</span>
   }
 
   if (isError) {
+    if (error.message==="Failed to execute 'json' on 'Response': Unexpected end of JSON input"){
+      return <span>This Class Has No Assignments</span>
+    }
     return <span>Error: {error.message}</span>
   }
 
-  const assignment: Assignment = data
-  console.log(data);
+  const assignment = data;
+    if (!assignment) {
+      return <span>Assignment not found</span>;
+    }
+    console.log("data aka assignment is "+data.title);
+
+  const formattedDate = new Date(assignment.due_date).toLocaleString();
 
   // We can assume by this point that `isSuccess === true`
   return (
     <div>
       <br></br>
       <h1>Assignments</h1>
-      <Link to='/assignments/$assignmentId' key={assignment.id} params={{ assignmentId: assignment.id.toString() }}><u>{`${assignment.title}`} -------------------------- Due: {`${assignment.due_date}`}</u></Link>
+      <Link to='/assignments/$assignmentId' key={assignment.id} params={{ assignmentId: assignment.id.toString() }}><u>{assignment.title} -------------------------- Due: {formattedDate}</u></Link>
     </div>
   )
+}
+
+
+function Update({course}:{course:CourseOut}){
+  const [title, setTitle] = useState(course.title);
+  const [description, setDescription] = useState(course.description);
+  const [instructorId, setInstructorId] = useState(2001); //automatically makes instructor Professor Dana Lee from the database
+
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+      mutationFn: (updatedCourse: CourseUpdateIn) => {
+      return mutateBackend<CourseOut>(`courses/${course.id}`, 'PATCH', updatedCourse);
+      },
+      onSuccess: (data: CourseOut) => {
+      queryClient.setQueryData(['courses', data.id], data);
+      },
+  });
+
+return (<div>
+      <header>
+      <h1>Update Course</h1>
+    </header>
+    {mutation.isPending ? (
+      <div>Updating course...</div>
+    ) : (
+      <>
+        {mutation.isError ? (
+          <div>Error updating course: {mutation.error.message}</div>
+        ) : null}
+        {mutation.isSuccess ? (
+          <div>Course updated successfully! ID: {mutation.data.id}</div>
+        ) : null}
+        <hr></hr>
+        <div>
+          <input
+            type="text"
+            placeholder="Course Name"
+            value={course.title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            placeholder="Course Description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            placeholder="Instructor ID"
+            value={instructorId}
+            onChange={(e) => setInstructorId(Number(e.target.value))}
+          />
+        </div>
+        <div></div>
+        <div>
+          <button
+            onClick={() => {
+              mutation.mutate({
+                title: title,
+                description: description,
+                instructor_id: instructorId,
+              });
+            }}
+          >
+            Update Course
+          </button>
+        </div>
+        <hr></hr>
+        <div>
+          <a href="/courses">Back to Courses</a>
+        </div>
+      </>
+    )}
+  </div>)
 }
