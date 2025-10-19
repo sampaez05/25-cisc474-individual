@@ -49,7 +49,7 @@ function AssignmentPage({ assignmentId }: { assignmentId: string }) {
     // We can assume by this point that `isSuccess === true`
     return (
       <div>
-        <Link to="/courses"><button><u>Back to Courses Page</u></button></Link>
+        <Link to="/assignments"><button><u>Back to Assignments Page</u></button></Link>
         <br></br>
         <br></br>
         <h1> {`${assignment.title}`} -------------------------- Due: {formattedDate}</h1>

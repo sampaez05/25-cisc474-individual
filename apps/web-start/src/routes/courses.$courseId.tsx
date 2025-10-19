@@ -1,10 +1,11 @@
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { Course } from '../../interfaces/course.interface'
 import { Assignment } from '../../interfaces/assignment.interface'
-import { backendFetcher } from '../integrations/fetcher'
-import type {CourseOut} from '../../../../packages/api/src/courses'
+import { backendFetcher, mutateBackend } from '../integrations/fetcher'
+import type {CourseOut, CourseUpdateIn} from '../../../../packages/api/src/courses'
 import type {AssignmentOut} from '../../../../packages/api/src/assignments'
+import { useState } from 'react'
 
 
 export const Route = createFileRoute('/courses/$courseId')({
@@ -13,10 +14,10 @@ export const Route = createFileRoute('/courses/$courseId')({
 })
 
 function CourseComponent() {
-    const {courseId} = Route.useParams()
+    const {courseId} = Route.useParams();
+    const [showUpdate, setShowUpdate] = useState(false);
   return <div>
     <CoursePage courseId={courseId}/>
-  
   </div>
 
 function CoursePage({ courseId }: { courseId: string }) {
@@ -52,6 +53,11 @@ function CoursePage({ courseId }: { courseId: string }) {
         <p>{`${course.description}`}</p> 
         <br></br>
         <AssignmentsList courseId={courseId}/> 
+        <br></br>
+        <br></br>
+        <p>still in prog</p>
+        <button onClick={()=>setShowUpdate(true)}><u>Update This Course</u></button>
+        {showUpdate && <Update course={course} />}
       </div>
     )
   }
@@ -89,4 +95,83 @@ function AssignmentsList({ courseId }: { courseId: string }) {
       <Link to='/assignments/$assignmentId' key={assignment.id} params={{ assignmentId: assignment.id.toString() }}><u>{assignment.title} -------------------------- Due: {formattedDate}</u></Link>
     </div>
   )
+}
+
+
+function Update({course}:{course:CourseOut}){
+  const [title, setTitle] = useState(course.title);
+  const [description, setDescription] = useState(course.description);
+  const [instructorId, setInstructorId] = useState(2001); //automatically makes instructor Professor Dana Lee from the database
+
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+      mutationFn: (updatedCourse: CourseUpdateIn) => {
+      return mutateBackend<CourseOut>(`courses/${course.id}`, 'PATCH', updatedCourse);
+      },
+      onSuccess: (data: CourseOut) => {
+      queryClient.setQueryData(['courses', data.id], data);
+      },
+  });
+
+return (<div>
+      <header>
+      <h1>Update Course</h1>
+    </header>
+    {mutation.isPending ? (
+      <div>Updating course...</div>
+    ) : (
+      <>
+        {mutation.isError ? (
+          <div>Error updating course: {mutation.error.message}</div>
+        ) : null}
+        {mutation.isSuccess ? (
+          <div>Course updated successfully! ID: {mutation.data.id}</div>
+        ) : null}
+        <hr></hr>
+        <div>
+          <input
+            type="text"
+            placeholder="Course Name"
+            value={course.title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            placeholder="Course Description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            placeholder="Instructor ID"
+            value={instructorId}
+            onChange={(e) => setInstructorId(Number(e.target.value))}
+          />
+        </div>
+        <div></div>
+        <div>
+          <button
+            onClick={() => {
+              mutation.mutate({
+                title: title,
+                description: description,
+                instructor_id: instructorId,
+              });
+            }}
+          >
+            Update Course
+          </button>
+        </div>
+        <hr></hr>
+        <div>
+          <a href="/courses">Back to Courses</a>
+        </div>
+      </>
+    )}
+  </div>)
 }

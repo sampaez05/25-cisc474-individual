@@ -32,9 +32,21 @@ export class CoursesService {
     return this.prisma.course.findUnique({ where: { id } });
   }
 
-  update(id: number, updateCourseDto: UpdateCourseDto) {
-    return `This action updates a #${id} course`;
-  }
+  /*update(id: number, updateCourseDto: UpdateCourseDto) {
+    return this.prisma.course.update({ where: { id } });
+  }*/
+
+  async update(id: number, updateCourseDto: UpdateCourseDto): Promise<CourseOut> {
+    const course = await this.prisma.course.update({
+      where: {id},
+      data:updateCourseDto,});
+    return {
+      id: course.id,
+      title: course.title,
+      description: course.description,
+      instructor_id: course.instructor_id,
+    }
+  };
 
   async delete(id: number){
     return this.prisma.course.delete({ where: { id } });

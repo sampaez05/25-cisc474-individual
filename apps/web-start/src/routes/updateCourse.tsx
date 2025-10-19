@@ -2,23 +2,33 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
 import { mutateBackend } from '../integrations/fetcher';
-import type {CourseOut, CourseCreateIn} from '../../../../packages/api/src/courses'
+import type {CourseOut, CourseCreateIn, CourseUpdateIn} from '../../../../packages/api/src/courses'
 
 export const Route = createFileRoute('/updateCourse')({
   component: RouteComponent,
 })
 
 function RouteComponent() {
+    const courseId:number = Route.useParams();
+    return(
+        <div>
+            <Update courseId={courseId}/>
+        </div>
+    )   
+}
 
-    const [title, setTitle] = useState('');
+function Update({courseId}:{ courseId: number }){
+
+    const course:Course = courses.find(course => course.id === courseId);
+    const [title, setTitle] = useState();
     const [description, setDescription] = useState('');
     const [instructorId, setInstructorId] = useState(2001); //automatically makes instructor Professor Dana Lee from the database
   
     const queryClient = useQueryClient();
 
     const mutation = useMutation({
-        mutationFn: (newCourse: CourseCreateIn) => {
-        return mutateBackend<CourseOut>('courses', 'POST', newCourse);
+        mutationFn: (updatedCourse: CourseUpdateIn) => {
+        return mutateBackend<CourseOut>('courses', 'POST', updatedCourse);
         },
         onSuccess: (data: CourseOut) => {
         queryClient.setQueryData(['courses', data.id], data);
@@ -27,7 +37,7 @@ function RouteComponent() {
   
   return (<div>
         <header>
-        <h1>Create a New Course</h1>
+        <h1>Update Course</h1>
       </header>
       {mutation.isPending ? (
         <div>Creating course...</div>
@@ -75,7 +85,7 @@ function RouteComponent() {
                 });
               }}
             >
-              Create Course
+              Update Course
             </button>
           </div>
           <hr></hr>

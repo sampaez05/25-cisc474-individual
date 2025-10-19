@@ -7,7 +7,7 @@ import type {AssignmentOut} from '../../../../packages/api/src/assignments'
 
 const assignmentsQueryOptions = {
   queryKey: ['courses'],
-  queryFn: backendFetcher<Array<AssignmentOut>>('courses'),
+  queryFn: backendFetcher<Array<AssignmentOut>>('assignments'),
   initialData: [],
 };
 
@@ -39,7 +39,7 @@ function Assignments() {
       <ul>
         {data.map((assignment) => (
           <header key={assignment.id}>
-            <Link to='/assignments/$assignmentId' params={{ assignmentId: assignment.id }}><li><u>{assignment.title}</u></li></Link>
+            <Link to='/assignments/$assignmentId' params={{ assignmentId: assignment.id.toString() }}><li><u>{assignment.title}</u></li></Link>
           </header>
         ))}
       </ul>
