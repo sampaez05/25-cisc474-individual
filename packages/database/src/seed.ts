@@ -2,7 +2,6 @@ import { prisma } from "./client";
 import path from "path";
 import fs from "fs";
 import type { User, Grade, Course, Assignment, Submission, Feedback } from "../generated/client";
-import type usersData from "../seed-data/users.json";
 
 /*const DEFAULT_USERS = [
   // Add your own user to pre-populate the database with
@@ -44,10 +43,17 @@ const DEFAULT_FEEDBACK = loadJSON<any[]>("feedback.json");
             id: course.id,
           },
           update: {
-            ...course,
+            title: course.title,
+            description: course.description,
+            instructor_id: course.instructor_id,
+            files: course.files,
           },
           create: {
-            ...course,
+            //id: course.id,
+            title: course.title,
+            description: course.description,
+            instructor_id: course.instructor_id,
+            files: course.files,
           },
         })
       )
@@ -122,7 +128,8 @@ const DEFAULT_FEEDBACK = loadJSON<any[]>("feedback.json");
 
 // loads JSON file to be seeded in
 function loadJSON<T>(filename: string) {
-  const filePath = path.join(__dirname,"seed-data", filename) 
+  const filePath = path.join(__dirname,"../","seed-data", filename) 
+  console.log(filePath);
       //builds the full file path using just the file name (ex. users.json)
   return JSON.parse(fs.readFileSync(filePath,"utf-8"));
       //utf-8 makes function return a string

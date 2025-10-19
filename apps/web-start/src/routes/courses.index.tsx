@@ -21,6 +21,12 @@ function RouteComponent() {
     <Courses/>
     <br></br>
     <Link to="/createCourse"><u>Add New Course</u></Link>
+    <br></br>
+    <Link to="/updateCourse"><u>Update Existing Course</u></Link>
+    <br></br>
+    <br></br>
+    <p>still in prog</p>
+    <Link to="/deleteCourse"><u>Delete A Course</u></Link>
     </div>
   )
 }

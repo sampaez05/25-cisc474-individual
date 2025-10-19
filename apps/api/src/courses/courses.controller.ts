@@ -73,7 +73,7 @@ export class CoursesController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.coursesService.remove(Number(id));
+  remove(@Param('id') id: number) {
+    return this.coursesService.delete(id);
   }
 }

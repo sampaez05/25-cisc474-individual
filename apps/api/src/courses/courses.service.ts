@@ -3,7 +3,7 @@ import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
 import { PrismaService } from 'src/prisma.service';
 import { Course } from 'src/interfaces/course.interface';
-import { CourseCreateIn, CourseUpdateIn, CourseOut } from '@repo/api/courses';
+import { CourseCreateIn, CourseUpdateIn, CourseOut, CourseDeleteIn } from '@repo/api/courses';
 
 @Injectable()
 export class CoursesService {
@@ -36,7 +36,7 @@ export class CoursesService {
     return `This action updates a #${id} course`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} course`;
+  async delete(id: number){
+    return this.prisma.course.delete({ where: { id } });
   }
 }

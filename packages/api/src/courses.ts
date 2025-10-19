@@ -29,4 +29,11 @@ export const CourseUpdateIn = z.object({
     instructor_id: z.int().optional(),
   });
   export type CourseUpdateIn = z.infer<typeof CourseUpdateIn>;
+
+  //body of requests when deleting DTOs
+export const CourseDeleteIn = z.object({
+    title: z.string().min(1),
+    id: z.number(),
+});
+export type CourseDeleteIn = z.infer<typeof CourseDeleteIn>;
   
