@@ -10,43 +10,74 @@ datasource db {
 }
 
 model User {
-  id        Int     @id @default(autoincrement())
-  school_id Int?
-  name      String?
-  email     String? @unique
-  role      String?
+  id                Int              @id @default(autoincrement())
+  school_id         Int?
+  name              String?
+  email             String?          @unique
+  owned_assignments Assignment[]
+  owned_submissions Submission[]
+  owned_courses     Course[]
+  role              Role[]
+  authentications   Authentication[]
+}
+
+model Role {
+  id       Int      @id @default(autoincrement())
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId   Int
+  course   Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  courseId Int
+  role     String
+
+  @@index([userId])
 }
 
 model Grade {
-  id         Int    @id @default(autoincrement())
+  id        Int    @id @default(autoincrement())
   school_id Int
-  course_id  Int
-  semester   String
-  grade      Float
+  course_id Int
+  semester  String
+  grade     Float
 }
 
 model Course {
-  id            Int    @id @default(autoincrement())
+  id            Int          @id @default(autoincrement())
   title         String
   description   String
   instructor_id Int
   files         String[]
+  assignments   Assignment[]
+  submissions   Submission[]
+  User          User?        @relation(fields: [userId], references: [id])
+  userId        Int?
+  Role          Role[]
+
+  @@index([instructor_id])
 }
 
 model Assignment {
-  id          Int      @id @default(autoincrement())
+  id          Int          @id @default(autoincrement())
   title       String
   description String
   due_date    DateTime
   post_date   DateTime
-  course_id   Int
+  Course      Course?      @relation(fields: [courseId], references: [id])
+  courseId    Int?
+  submissions Submission[]
+  User        User?        @relation(fields: [userId], references: [id])
+  userId      Int?
 }
 
 model Submission {
-  id            Int    @id @default(autoincrement())
-  assignment_id Int
-  student_id    Int
-  file          String
+  id           Int        @id @default(autoincrement())
+  assignment   Assignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  assignmentId Int
+  student_id   Int
+  file         String
+  Course       Course?    @relation(fields: [courseId], references: [id])
+  courseId     Int?
+  User         User?      @relation(fields: [userId], references: [id])
+  userId       Int?
 }
 
 model Feedback {
@@ -54,4 +85,14 @@ model Feedback {
   comment       String
   submission_id Int
   grade         Float
+}
+
+model Authentication {
+  id         Int    @id @default(autoincrement())
+  userId     Int
+  provider   String
+  providerId String
+  user       User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([provider, providerId])
 }

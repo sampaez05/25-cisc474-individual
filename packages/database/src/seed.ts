@@ -1,7 +1,7 @@
 import { prisma } from "./client";
 import path from "path";
 import fs from "fs";
-import type { User, Grade, Course, Assignment, Submission, Feedback } from "../generated/client";
+import type { User, Grade, Course, Assignment, Submission, Feedback, Role, Authentication } from "../generated/client";
 
 /*const DEFAULT_USERS = [
   // Add your own user to pre-populate the database with
@@ -17,6 +17,8 @@ const DEFAULT_GRADES = loadJSON<any[]>("grades.json");
 const DEFAULT_ASSIGNMENTS = loadJSON<any[]>("assignments.json");
 const DEFAULT_SUBMISSIONS = loadJSON<any[]>("submissions.json");
 const DEFAULT_FEEDBACK = loadJSON<any[]>("feedback.json");
+const DEFAULT_AUTHENTICATIONS = loadJSON<any[]>("authentications.json");
+const DEFAULT_ROLES = loadJSON<any[]>("roles.json");
 
 (async () => {
   try {
@@ -25,7 +27,6 @@ const DEFAULT_FEEDBACK = loadJSON<any[]>("feedback.json");
         prisma.user.upsert({
           where: {
             id: user.id,
-            school_id: user.school_id,
           },
           update: {
             ...user,
@@ -69,6 +70,36 @@ const DEFAULT_FEEDBACK = loadJSON<any[]>("feedback.json");
           },
           create: {
             ...grade,
+          },
+        })
+      )
+    );
+    await Promise.all(
+      DEFAULT_ROLES.map((role:Role) =>
+        prisma.role.upsert({
+          where: {
+            id: role.id,
+          },
+          update: {
+            ...role,
+          },
+          create: {
+            ...role,
+          },
+        })
+      )
+    );
+    await Promise.all(
+      DEFAULT_AUTHENTICATIONS.map((authentication:Authentication) =>
+        prisma.authentication.upsert({
+          where: {
+            id: authentication.id,
+          },
+          update: {
+            ...authentication,
+          },
+          create: {
+            ...authentication,
           },
         })
       )

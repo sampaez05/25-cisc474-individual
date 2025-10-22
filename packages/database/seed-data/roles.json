@@ -1,0 +1,39 @@
+[
+    {
+      "id": 1,
+      "userId": 1,
+      "courseId": 1,
+      "role": "STUDENT"
+    },
+    {
+      "id": 2,
+      "userId": 2,
+      "courseId": 2,
+      "role": "STUDENT"
+    },
+    {
+      "id": 3,
+      "userId": 10303,
+      "courseId": 1,
+      "role": "STUDENT"
+    },
+    {
+      "id": 4,
+      "userId": 4,
+      "courseId": 2,
+      "role": "INSTRUCTOR"
+    },
+    {
+        "id": 5,
+        "userId": 5,
+        "courseId": 1,
+        "role": "INSTRUCTOR"
+      },
+      {
+        "id": 6,
+        "userId": 6,
+        "courseId": 1,
+        "role": "ADMIN"
+      }
+  ]
+  

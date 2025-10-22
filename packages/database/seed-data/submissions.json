@@ -1,21 +1,27 @@
 [
     {
       "id": 1,
-      "assignment_id": 1,
+      "assignmentId": 1,
       "student_id": 1001,
-      "file": "alice-fibonacci.py"
+      "file": "alice-fibonacci.py",
+      "courseId": 1,
+      "userId": 1001
     },
     {
       "id": 2,
-      "assignment_id": 1,
+      "assignmentId": 1,
       "student_id": 1002,
-      "file": "bob-fibonacci.py"
+      "file": "bob-fibonacci.py",
+      "courseId": 2,
+      "userId": 1001
     },
     {
       "id": 3,
-      "assignment_id": 3,
+      "assignmentId": 3,
       "student_id": 1003,
-      "file": "charlie-portfolio.zip"
+      "file": "charlie-portfolio.zip",
+      "courseId": 3,
+      "userId": 1001
     }
 ]
   

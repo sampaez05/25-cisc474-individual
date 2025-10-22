@@ -1,6 +1,6 @@
 export interface Submission {
     id: number;
-    assignment_id: number;
+    assignmentId: number;
     student_id: number;
     file: String;
 }
