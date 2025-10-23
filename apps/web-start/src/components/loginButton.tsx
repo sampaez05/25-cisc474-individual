@@ -15,7 +15,7 @@ const LoginButton = () => {
         })
       }
     >
-      Log In
+      <u>Log In</u>
     </button>
   );
 };
