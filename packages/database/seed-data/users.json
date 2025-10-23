@@ -1,9 +1,9 @@
 [
-    { "id": 1, "school_id": 1001, "name": "Alice Johnson", "email": "alice@example.com" },
-    { "id": 2, "school_id": 1002, "name": "Bob Smith", "email": "bob@example.com"},
-    { "id": 3, "school_id": 1003, "name": "Charlie Williams", "email": "charlie@example.com"},
-    { "id": 4, "school_id": 2001, "name": "Prof. Dana Lee", "email": "dana@example.com" },
-    { "id": 5, "school_id": 2002, "name": "Prof. Ethan Brown", "email": "ethan@example.com" },
-    { "id": 6, "school_id": 9999, "name": "Admin User", "email": "admin@example.com"}
+    { "id": 1, "school_id": 1001, "name": "Alice Johnson", "email": "alice@example.com", "role": "STUDENT" },
+    { "id": 2, "school_id": 1002, "name": "Bob Smith", "email": "bob@example.com", "role": "STUDENT" },
+    { "id": 3, "school_id": 1003, "name": "Charlie Williams", "email": "charlie@example.com", "role": "STUDENT" },
+    { "id": 4, "school_id": 2001, "name": "Prof. Dana Lee", "email": "dana@example.com", "role": "INSTRUCTOR" },
+    { "id": 5, "school_id": 2002, "name": "Prof. Ethan Brown", "email": "ethan@example.com", "role": "INSTRUCTOR" },
+    { "id": 6, "school_id": 9999, "name": "Admin User", "email": "admin@example.com", "role": "ADMIN" }
 ]
   

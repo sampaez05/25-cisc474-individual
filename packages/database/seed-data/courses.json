@@ -6,7 +6,7 @@
       "instructor_id": 2001,
       "files": ["syllabus.pdf", "week1-slides.pptx"],
       "assignment_id":1,
-      "userId": 2001
+      "userId": 4
     },
     {
       "id": 2,
@@ -15,7 +15,7 @@
       "instructor_id": 2001,
       "files": ["syllabus.pdf", "linked-list-guide.docx"],
       "assignment_id":2,
-      "userId": 2001
+      "userId": 4
     },
     {
       "id": 3,
@@ -24,7 +24,7 @@
       "instructor_id": 2002,
       "files": ["syllabus.pdf", "web-dev-resources.zip"],
       "assignment_id":3,
-      "userId": 2002
+      "userId": 5
     }
 ]
   

@@ -3,5 +3,5 @@ export interface Assignment {
     title: string;
     due_date: Date;
     post_date: Date;
-    courseId: number;
+    course_id: number;
 }

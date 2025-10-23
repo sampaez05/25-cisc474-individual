@@ -1,7 +1,7 @@
 import { prisma } from "./client";
 import path from "path";
 import fs from "fs";
-import type { User, Grade, Course, Assignment, Submission, Feedback, Role, Authentication } from "../generated/client";
+import type { User, Grade, Course, Assignment, Submission, Feedback, Authentication } from "../generated/client";
 
 /*const DEFAULT_USERS = [
   // Add your own user to pre-populate the database with
@@ -29,10 +29,16 @@ const DEFAULT_ROLES = loadJSON<any[]>("roles.json");
             id: user.id,
           },
           update: {
-            ...user,
+            name: user.name,
+            email: user.email,
+            role: user.role,
           },
           create: {
-            ...user,
+            name: user.name,
+            //id: user.id,
+            school_id: user.school_id,
+            email: user.email,
+            role: user.role,
           },
         })
       )
@@ -70,21 +76,6 @@ const DEFAULT_ROLES = loadJSON<any[]>("roles.json");
           },
           create: {
             ...grade,
-          },
-        })
-      )
-    );
-    await Promise.all(
-      DEFAULT_ROLES.map((role:Role) =>
-        prisma.role.upsert({
-          where: {
-            id: role.id,
-          },
-          update: {
-            ...role,
-          },
-          create: {
-            ...role,
           },
         })
       )
