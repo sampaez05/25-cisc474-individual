@@ -33,6 +33,7 @@
     "node": ">=18"
   },
   "dependencies": {
+    "@auth0/auth0-react": "^2.8.0",
     "@nestjs/common": "^11.1.6",
     "@nestjs/core": "^11.1.6",
     "@nestjs/jwt": "^11.0.1",

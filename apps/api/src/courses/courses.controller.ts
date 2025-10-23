@@ -19,7 +19,7 @@ import { JwtUser } from 'src/auth/jwt.strategy';
 export class CoursesController {
   constructor(private readonly coursesService: CoursesService) {}
 
-  @UseGuards(AuthGuard('jwt'))
+  //@UseGuards(AuthGuard('jwt'))
   @Get()
   findAll(@CurrentUser() user: JwtUser) {
     console.log('User accessed:', user);
@@ -31,20 +31,19 @@ export class CoursesController {
     return this.coursesService.findOne(Number(id));
   }
 
-  @UseGuards(AuthGuard('jwt'))
+  //@UseGuards(AuthGuard('jwt'))
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateCourseDto: CourseUpdateIn) {
     return this.coursesService.update(Number(id), updateCourseDto);
   }
 
-  @UseGuards(AuthGuard('jwt'))
+  //@UseGuards(AuthGuard('jwt'))
   @Post()
   create(@Body() createCourseDto: CourseCreateIn, @CurrentUser() user: JwtUser,) {
     createCourseDto.instructor_id = Number(user.userId);
     return this.coursesService.create(createCourseDto);
   }
-
-  @UseGuards(AuthGuard('jwt'))
+  //@UseGuards(AuthGuard('jwt'))
   @Delete(':id')
   remove(@Param('id') id: number) {
     return this.coursesService.delete(Number(id));
