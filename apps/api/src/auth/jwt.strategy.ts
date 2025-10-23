@@ -63,7 +63,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     if (!auth) {
       const user = await this.prisma.user.create({
         data: {
-          authentications: {
+            role: "STUDENT", //make default role student
+            authentication: {
             create: {
               provider,
               providerId,
