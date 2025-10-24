@@ -44,6 +44,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       issuer: `${process.env.AUTH0_ISSUER_URL}`,
       algorithms: ['RS256'],
     });
+    console.log("jwt strat initilialized")
   }
 
   async validate(payload: JwtPayload): Promise<JwtUser> {
@@ -80,6 +81,10 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         data: {},
       });
     }
+
+    console.log("userId is " , auth.userId);
+    console.log("provider is " , provider);
+    console.log("provider is " , providerId);
 
     return {
       userId: auth.userId.toString(),
