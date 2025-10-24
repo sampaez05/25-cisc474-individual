@@ -6,6 +6,7 @@ import { backendFetcher, mutateBackend } from '../integrations/fetcher'
 import type {CourseOut, CourseUpdateIn} from '../../../../packages/api/src/courses'
 import type {AssignmentOut} from '../../../../packages/api/src/assignments'
 import { useState } from 'react'
+import { useApiMutation, useCurrentUser } from '../integrations/api'
 
 
 export const Route = createFileRoute('/courses/$courseId')({
@@ -102,19 +103,28 @@ function AssignmentsList({ courseId }: { courseId: string }) {
 
 
 function Update({course}:{course:CourseOut}){
+  const { data: currentUser } = useCurrentUser();
   const [title, setTitle] = useState(course.title);
   const [description, setDescription] = useState(course.description);
   const [instructorId, setInstructorId] = useState(2001); //automatically makes instructor Professor Dana Lee from the database
 
   const queryClient = useQueryClient();
 
-  const mutation = useMutation({
+  /*const mutation = useMutation({
       mutationFn: (updatedCourse: CourseUpdateIn) => {
       return mutateBackend<CourseOut>(`courses/${course.id}`, 'PATCH', updatedCourse);
       },
       onSuccess: (data: CourseOut) => {
       queryClient.setQueryData(['courses', data.id], data);
       },
+  });*/
+
+  const mutation = useApiMutation<CourseUpdateIn, CourseOut>({
+    endpoint: (variables) => ({
+      path: `courses/${course.id}`,
+      method: 'PATCH',
+    }),
+    invalidateKeys: [['courses']],
   });
 
 return (<div>
