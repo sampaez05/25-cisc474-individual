@@ -12,7 +12,6 @@ function RouteComponent() {
     <div>
       <LoginButton/>
       <br></br>
-      <LogoutButton/>
 
       <p>Ignore bottom stuff for now plz</p>
       <Link to="/courses"><button><u>View Your Courses!</u></button></Link>
