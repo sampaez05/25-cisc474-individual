@@ -5,7 +5,8 @@
       "description": "Learn the basics of Python programming.",
       "instructor_id": 2001,
       "files": ["syllabus.pdf", "week1-slides.pptx"],
-      "assignment_id":1
+      "assignment_id":1,
+      "userId": 4
     },
     {
       "id": 2,
@@ -13,7 +14,8 @@
       "description": "Covers arrays, linked lists, stacks, and trees.",
       "instructor_id": 2001,
       "files": ["syllabus.pdf", "linked-list-guide.docx"],
-      "assignment_id":2
+      "assignment_id":2,
+      "userId": 4
     },
     {
       "id": 3,
@@ -21,7 +23,8 @@
       "description": "Introduction to HTML, CSS, and JavaScript.",
       "instructor_id": 2002,
       "files": ["syllabus.pdf", "web-dev-resources.zip"],
-      "assignment_id":3
+      "assignment_id":3,
+      "userId": 5
     }
 ]
   

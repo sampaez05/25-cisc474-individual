@@ -3,25 +3,34 @@ import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
 import { mutateBackend } from '../integrations/fetcher';
 import type {CourseOut, CourseDeleteIn} from '../../../../packages/api/src/courses'
+import { useApiMutation, useCurrentUser } from '../integrations/api';
 
 export const Route = createFileRoute('/deleteCourse')({
   component: RouteComponent,
 })
 
 function RouteComponent() {
-
+    const { data: currentUser } = useCurrentUser();
     const [title, setTitle] = useState('');
     const [courseId, setCourseId] = useState(0);
   
     const queryClient = useQueryClient();
 
-    const mutation = useMutation({
+    /*const mutation = useMutation({
         mutationFn: (course: CourseDeleteIn) => {
         return mutateBackend<CourseOut>(`courses/${courseId}`, 'DELETE', course);
         },
         onSuccess: (data: CourseOut) => {
         queryClient.setQueryData(['courses', data.id], data);
         },
+    });*/
+
+    const mutation = useApiMutation<CourseDeleteIn, CourseOut>({
+      endpoint: (variables) => ({
+        path: `courses/${courseId}`,
+        method: 'DELETE',
+      }),
+      invalidateKeys: [['courses']],
     });
   
   return (<div>

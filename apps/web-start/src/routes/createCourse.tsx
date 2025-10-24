@@ -3,20 +3,21 @@ import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
 import { mutateBackend } from '../integrations/fetcher';
 import type {CourseOut, CourseCreateIn} from '../../../../packages/api/src/courses'
+import { useApiMutation, useCurrentUser } from '../integrations/api';
 
 export const Route = createFileRoute('/createCourse')({
   component: RouteComponent,
 })
 
 function RouteComponent() {
-
+    const { data: currentUser } = useCurrentUser();
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [instructorId, setInstructorId] = useState(2001); //automatically makes instructor Professor Dana Lee from the database
+    const [instructorId, setInstructorId] = useState(currentUser?.id); //automatically makes instructor user 
   
     const queryClient = useQueryClient();
 
-    const mutation = useMutation({
+    /*const mutation = useMutation({
         mutationFn: (newCourse: CourseCreateIn) => {
         return mutateBackend<CourseOut>('courses', 'POST', newCourse);
         },
@@ -24,7 +25,15 @@ function RouteComponent() {
         queryClient.setQueryData(['courses', data.id], data);
         },
     });
-  
+  */
+    const mutation = useApiMutation<CourseCreateIn, CourseOut>({
+      endpoint: (variables) => ({
+        path: 'courses',
+        method: 'POST',
+      }),
+      invalidateKeys: [['courses']],
+    });
+
   return (<div>
         <header>
         <h1>Create a New Course</h1>
@@ -57,12 +66,6 @@ function RouteComponent() {
             />
           </div>
           <div>
-            <input
-              type="text"
-              placeholder="Instructor ID"
-              value={instructorId}
-              onChange={(e) => setInstructorId(Number(e.target.value))}
-            />
           </div>
           <div></div>
           <div>
@@ -71,7 +74,7 @@ function RouteComponent() {
                 mutation.mutate({
                   title: title,
                   description: description,
-                  instructor_id: instructorId,
+                  instructor_id: Number(currentUser?.id),
                 });
               }}
             ><u>Create Course</u>

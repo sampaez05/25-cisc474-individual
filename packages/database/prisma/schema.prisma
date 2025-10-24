@@ -10,23 +10,24 @@ datasource db {
 }
 
 model User {
-  id        Int     @id @default(autoincrement())
-  school_id Int?
-  name      String?
-  email     String? @unique
-  role      String?
+  id             Int              @id @default(autoincrement())
+  school_id      Int?
+  name           String?
+  email          String?          @unique
+  authentication Authentication?
+  role           String
 }
 
 model Grade {
-  id         Int    @id @default(autoincrement())
+  id        Int    @id @default(autoincrement())
   school_id Int
-  course_id  Int
-  semester   String
-  grade      Float
+  course_id Int
+  semester  String
+  grade     Float
 }
 
 model Course {
-  id            Int    @id @default(autoincrement())
+  id            Int      @id @default(autoincrement())
   title         String
   description   String
   instructor_id Int
@@ -54,4 +55,12 @@ model Feedback {
   comment       String
   submission_id Int
   grade         Float
+}
+
+model Authentication {
+  id     Int  @id @default(autoincrement())
+  userId Int  @unique
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  provider   String
+  providerId String
 }
